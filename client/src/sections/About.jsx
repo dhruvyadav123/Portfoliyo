@@ -1,24 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
 import PROFILE_IMG from '../assets/profile.png';
 
+// ── Data ────────────────────────────────────────────────────────────────────
 const certifications = [
   { title: "Full Stack Web Development (MERN)", issuer: "GRAStech", year: "2026" },
-  { title: "Summer Training in PHP with MVC", issuer: "Self", year: "Oct 2024" },
-  { title: "Web Designing Certification", issuer: "Self", year: "Feb 2023" },
+  { title: "Summer Training in PHP with MVC",   issuer: "Self",     year: "Oct 2024" },
+  { title: "Web Designing Certification",        issuer: "Self",     year: "Feb 2023" },
 ];
 
 const education = [
-  { degree: "B.Tech â€“ Computer Science", institute: "LDC Institute, Prayagraj Â· AKTU University", year: "Pursuing" },
-  { degree: "Diploma â€“ Computer Science", institute: "Govt. Polytechnic Chopan, Sonebhadra", year: "2025" },
-  { degree: "Higher Secondary (12th)", institute: "Govt. Excellence H.S. School, MP", year: "2022" },
-  { degree: "High School (10th)", institute: "Govt. Excellence H.S. School, MP", year: "2020" },
+  { degree: "B.Tech – Computer Science",    institute: "LDC Institute, Prayagraj · AKTU University",    year: "Pursuing" },
+  { degree: "Diploma – Computer Science",   institute: "Govt. Polytechnic Chopan, Sonebhadra",           year: "2025"     },
+  { degree: "Higher Secondary (12th)",      institute: "Govt. Excellence H.S. School, MP",               year: "2022"     },
+  { degree: "High School (10th)",           institute: "Govt. Excellence H.S. School, MP",               year: "2020"     },
 ];
 
 const experience = [
   {
-    title: "MERN Stack Development Trainee",
-    period: "Jul 2025 â€“ Jan 2026",
-    company: "Grastech Â· Noida, Uttar Pradesh",
+    title:   "MERN Stack Development Trainee",
+    period:  "Jul 2025 – Jan 2026",
+    company: "Grastech · Noida, Uttar Pradesh",
     points: [
       "Developed full-stack web applications using MongoDB, Express.js, React.js, and Node.js.",
       "Built and consumed RESTful APIs; tested endpoints using Postman.",
@@ -28,9 +29,9 @@ const experience = [
     ],
   },
   {
-    title: "Frontend Development Intern",
-    period: "Sep 2025 â€“ Dec 2025",
-    company: "Grastech Â· Noida, Uttar Pradesh",
+    title:   "Frontend Development Intern",
+    period:  "Sep 2025 – Dec 2025",
+    company: "Grastech · Noida, Uttar Pradesh",
     points: [
       "Designed responsive UI components using HTML, CSS, JavaScript, and React.js.",
       "Applied Tailwind CSS for consistent, mobile-first design across all pages.",
@@ -40,66 +41,77 @@ const experience = [
   },
 ];
 
-/* â”€â”€â”€ Animated word-by-word text (book-reveal style) â”€â”€â”€ */
-function BookText({ text, className = '', delay = 0 }) {
+// ── Hooks ────────────────────────────────────────────────────────────────────
+function useInView(threshold = 0.15) {
   const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-
+  const [vis, setVis] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.2 });
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setVis(true); },
+      { threshold }
+    );
     obs.observe(el);
     return () => obs.disconnect();
-  }, []);
+  }, [threshold]);
+  return [ref, vis];
+}
 
-  const words = text.split(' ');
+// ── Animated Components ───────────────────────────────────────────────────────
+
+/** Fade + slide-up wrapper */
+function Reveal({ children, className = '', delay = 0, style = {} }) {
+  const [ref, vis] = useInView(0.1);
   return (
-    <p ref={ref} className={className}>
-      {words.map((word, i) => (
-        <span
-          key={i}
-          style={{
-            display: 'inline-block',
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0)' : 'translateY(12px)',
-            transition: `opacity 0.5s ease ${delay + i * 0.04}s, transform 0.5s ease ${delay + i * 0.04}s`,
-            marginRight: '0.28em',
-          }}
-        >
-          {word}
-        </span>
-      ))}
-    </p>
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity:    vis ? 1 : 0,
+        transform:  vis ? 'translateY(0)' : 'translateY(32px)',
+        transition: `opacity 0.65s ease ${delay}s, transform 0.65s cubic-bezier(.22,1,.36,1) ${delay}s`,
+        ...style,
+      }}
+    >
+      {children}
+    </div>
   );
 }
 
-/* â”€â”€â”€ Char-by-char heading (typewriter drip) â”€â”€â”€ */
+/** Char-by-char heading */
 function DripHeading({ text, accent, className = '', delay = 0 }) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.3 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  const chars = (text + ' ' + accent).split('');
-  const splitAt = text.length + 1;
+  const [ref, vis] = useInView(0.3);
+  const mainChars   = text.split('');
+  const accentChars = accent.split('');
   return (
-    <h2 ref={ref} className={className}>
-      {chars.map((ch, i) => (
+    <h2 ref={ref} className={className} style={{ fontFamily: "'Syne', sans-serif" }}>
+      {mainChars.map((ch, i) => (
         <span
-          key={i}
+          key={`m${i}`}
           style={{
-            display: 'inline-block',
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0) rotateX(0deg)' : 'translateY(-20px) rotateX(-90deg)',
+            display:    'inline-block',
+            opacity:    vis ? 1 : 0,
+            transform:  vis ? 'translateY(0)' : 'translateY(-18px)',
             transition: `opacity 0.4s ease ${delay + i * 0.03}s, transform 0.5s cubic-bezier(.22,1,.36,1) ${delay + i * 0.03}s`,
-            color: i >= splitAt ? '#eba134' : 'white',
             whiteSpace: ch === ' ' ? 'pre' : 'normal',
+            color:      'white',
+          }}
+        >
+          {ch}
+        </span>
+      ))}
+      <span> </span>
+      {accentChars.map((ch, i) => (
+        <span
+          key={`a${i}`}
+          style={{
+            display:    'inline-block',
+            opacity:    vis ? 1 : 0,
+            transform:  vis ? 'translateY(0)' : 'translateY(-18px)',
+            transition: `opacity 0.4s ease ${delay + (mainChars.length + 1 + i) * 0.03}s, transform 0.5s cubic-bezier(.22,1,.36,1) ${delay + (mainChars.length + 1 + i) * 0.03}s`,
+            whiteSpace: ch === ' ' ? 'pre' : 'normal',
+            color:      '#eba134',
           }}
         >
           {ch}
@@ -109,321 +121,263 @@ function DripHeading({ text, accent, className = '', delay = 0 }) {
   );
 }
 
-/* â”€â”€â”€ Slide-up section wrapper â”€â”€â”€ */
-function Reveal({ children, className = '', delay = 0 }) {
-  const ref = useRef(null);
-  const [vis, setVis] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true); }, { threshold: 0.1 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+/** Word-by-word paragraph */
+function BookText({ text, className = '', delay = 0 }) {
+  const [ref, vis] = useInView(0.1);
+  const words = text.split(' ');
   return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: vis ? 1 : 0,
-        transform: vis ? 'translateY(0)' : 'translateY(40px)',
-        transition: `opacity 0.7s ease ${delay}s, transform 0.7s cubic-bezier(.22,1,.36,1) ${delay}s`,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-/* â”€â”€â”€ Floating particles background â”€â”€â”€ */
-function Particles() {
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {[...Array(22)].map((_, i) => (
-        <div
+    <p ref={ref} className={className}>
+      {words.map((word, i) => (
+        <span
           key={i}
           style={{
-            position: 'absolute',
-            left: `${(i * 47 + 13) % 100}%`,
-            top: `${(i * 31 + 7) % 100}%`,
-            width: i % 3 === 0 ? '2px' : '1px',
-            height: i % 3 === 0 ? '2px' : '1px',
-            borderRadius: '50%',
-            background: '#eba134',
-            opacity: 0.25 + (i % 4) * 0.1,
-            animation: `float${i % 3} ${6 + (i % 4)}s ease-in-out infinite`,
-            animationDelay: `${(i * 0.7) % 5}s`,
+            display:    'inline-block',
+            opacity:    vis ? 1 : 0,
+            transform:  vis ? 'translateY(0)' : 'translateY(10px)',
+            transition: `opacity 0.45s ease ${delay + i * 0.035}s, transform 0.45s ease ${delay + i * 0.035}s`,
+            marginRight: '0.27em',
           }}
-        />
+        >
+          {word}
+        </span>
       ))}
-    </div>
+    </p>
   );
 }
 
-/* â”€â”€â”€ Orbiting glow rings â”€â”€â”€ */
+/** Counting number */
+function Counter({ to, suffix = '' }) {
+  const [val, setVal] = useState(0);
+  const [ref, vis]    = useInView(0.5);
+  const started       = useRef(false);
+  useEffect(() => {
+    if (!vis || started.current) return;
+    started.current = true;
+    let cur = 0;
+    const step  = Math.max(1, Math.ceil(to / 45));
+    const timer = setInterval(() => {
+      cur += step;
+      if (cur >= to) { setVal(to); clearInterval(timer); }
+      else setVal(cur);
+    }, 35);
+    return () => clearInterval(timer);
+  }, [vis, to]);
+  return <span ref={ref}>{val}{suffix}</span>;
+}
+
+// ── Background decorations ────────────────────────────────────────────────────
 function GlowOrbs() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
       <div style={{
-        position: 'absolute', top: '10%', right: '-10%', width: '500px', height: '500px',
+        position: 'absolute', top: '8%', right: '-8%',
+        width: 'clamp(260px,40vw,500px)', height: 'clamp(260px,40vw,500px)',
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(235,161,52,0.06) 0%, transparent 70%)',
-        animation: 'orbSpin 20s linear infinite',
+        background: 'radial-gradient(circle, rgba(235,161,52,0.055) 0%, transparent 70%)',
+        animation: 'orbSpin 22s linear infinite',
       }} />
       <div style={{
-        position: 'absolute', bottom: '5%', left: '-8%', width: '400px', height: '400px',
+        position: 'absolute', bottom: '4%', left: '-6%',
+        width: 'clamp(200px,32vw,400px)', height: 'clamp(200px,32vw,400px)',
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(235,161,52,0.05) 0%, transparent 70%)',
-        animation: 'orbSpin 30s linear infinite reverse',
-      }} />
-      <div style={{
-        position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
-        width: '800px', height: '800px', borderRadius: '50%',
-        border: '1px solid rgba(235,161,52,0.04)',
-        animation: 'orbSpin 40s linear infinite',
+        background: 'radial-gradient(circle, rgba(235,161,52,0.045) 0%, transparent 70%)',
+        animation: 'orbSpin 32s linear infinite reverse',
       }} />
     </div>
   );
 }
 
-/* â”€â”€â”€ Grid texture overlay â”€â”€â”€ */
 function GridLines() {
   return (
     <div
       className="pointer-events-none absolute inset-0"
+      aria-hidden
       style={{
         backgroundImage: `
-          linear-gradient(rgba(235,161,52,0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(235,161,52,0.03) 1px, transparent 1px)
+          linear-gradient(rgba(235,161,52,0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(235,161,52,0.025) 1px, transparent 1px)
         `,
-        backgroundSize: '60px 60px',
+        backgroundSize: '64px 64px',
       }}
     />
   );
 }
 
-/* â”€â”€â”€ Counter animation â”€â”€â”€ */
-function Counter({ to, suffix = '' }) {
-  const [val, setVal] = useState(0);
-  const ref = useRef(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        let start = 0;
-        const step = Math.ceil(to / 40);
-        const timer = setInterval(() => {
-          start += step;
-          if (start >= to) { setVal(to); clearInterval(timer); }
-          else setVal(start);
-        }, 40);
-      }
-    }, { threshold: 0.5 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [to]);
-  return <span ref={ref}>{val}{suffix}</span>;
-}
-
+// ── Main Component ────────────────────────────────────────────────────────────
 function About() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
 
-        @keyframes float0 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-        @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
-        @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-        @keyframes orbSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-        @keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
-        @keyframes borderGlow {
-          0%,100%{box-shadow:0 0 0 0 rgba(235,161,52,0)} 
-          50%{box-shadow:0 0 20px 2px rgba(235,161,52,0.15)}
+        @keyframes orbSpin   { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        @keyframes pulseDot  { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.6)} }
+        @keyframes cardFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+        @keyframes tlDot     { 0%{box-shadow:0 0 0 0 rgba(235,161,52,0.55)} 70%{box-shadow:0 0 0 7px rgba(235,161,52,0)} 100%{box-shadow:0 0 0 0 rgba(235,161,52,0)} }
+        @keyframes shimmer   { 0%{background-position:-200% center} 100%{background-position:200% center} }
+        @keyframes scanLine  { 0%{top:-2px} 100%{top:calc(100% + 2px)} }
+        @keyframes borderGlo { 0%,100%{box-shadow:0 0 0 0 rgba(235,161,52,0)} 50%{box-shadow:0 0 22px 2px rgba(235,161,52,0.13)} }
+
+        /* card hover shimmer sweep */
+        .bcard { position:relative; overflow:hidden; }
+        .bcard::after {
+          content:''; position:absolute; inset:0;
+          background:linear-gradient(105deg,transparent 40%,rgba(235,161,52,0.045) 50%,transparent 60%);
+          transform:translateX(-100%); transition:transform 0.65s ease; pointer-events:none;
         }
-        @keyframes scanLine {
-          0%{transform:translateY(-100%)} 100%{transform:translateY(400%)}
-        }
-        @keyframes pulse-dot {
-          0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.5)}
-        }
-        @keyframes cardFloat {
-          0%,100%{transform:translateY(0px)} 50%{transform:translateY(-6px)}
-        }
-        @keyframes timelineDot {
-          0%{box-shadow:0 0 0 0 rgba(235,161,52,0.5)} 
-          70%{box-shadow:0 0 0 8px rgba(235,161,52,0)} 
-          100%{box-shadow:0 0 0 0 rgba(235,161,52,0)}
-        }
-        .book-card {
-          position: relative;
-          overflow: hidden;
-        }
-        .book-card::before {
-          content: '';
-          position: absolute;
-          top: -2px; left: -2px; right: -2px; bottom: -2px;
-          background: linear-gradient(135deg, rgba(235,161,52,0.15), transparent 40%, rgba(235,161,52,0.08));
-          border-radius: inherit;
-          opacity: 0;
-          transition: opacity 0.4s;
-          pointer-events: none;
-        }
-        .book-card:hover::before { opacity: 1; }
-        .book-card::after {
-          content: '';
-          position: absolute;
-          top: 0; left: -100%; width: 60%; height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(235,161,52,0.04), transparent);
-          transition: left 0.6s ease;
-          pointer-events: none;
-        }
-        .book-card:hover::after { left: 150%; }
+        .bcard:hover::after { transform:translateX(100%); }
 
         .shimmer-text {
-          background: linear-gradient(90deg, #fff 40%, #eba134 50%, #fff 60%);
-          background-size: 200% auto;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          animation: shimmer 3s linear infinite;
+          background:linear-gradient(90deg,#fff 38%,#eba134 50%,#fff 62%);
+          background-size:220% auto;
+          -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+          background-clip:text; animation:shimmer 3.5s linear infinite;
         }
 
-        .cert-card {
-          transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease;
-        }
-        .cert-card:hover {
-          transform: translateX(6px) scale(1.01);
-          box-shadow: -3px 0 0 #eba134, 0 4px 20px rgba(235,161,52,0.1);
-        }
+        .cert-row { transition:transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease; }
+        .cert-row:hover { transform:translateX(5px) scale(1.01); box-shadow:-3px 0 0 #eba134, 0 4px 18px rgba(235,161,52,0.1); }
 
-        .exp-card {
-          transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease;
-        }
-        .exp-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 8px 32px rgba(235,161,52,0.12);
-        }
+        .exp-card { transition:transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease; }
+        .exp-card:hover { transform:translateY(-3px); box-shadow:0 8px 30px rgba(235,161,52,0.11); }
 
-        .stat-box {
-          animation: cardFloat 4s ease-in-out infinite;
-        }
-        .stat-box:nth-child(2) { animation-delay: 0.5s; }
-        .stat-box:nth-child(3) { animation-delay: 1s; }
+        /* stat float stagger */
+        .sf0 { animation:cardFloat 4s   ease-in-out infinite; }
+        .sf1 { animation:cardFloat 4s   ease-in-out infinite 0.45s; }
+        .sf2 { animation:cardFloat 4s   ease-in-out infinite 0.9s; }
+
+        /* ── Responsive helpers ── */
+        /* ensure nothing overflows its parent */
+        * { box-sizing:border-box; }
       `}</style>
 
       <section
         id="about"
         style={{ fontFamily: "'DM Sans', sans-serif" }}
-        className="relative bg-[#070707] px-4 sm:px-6 py-24 text-white overflow-hidden"
+        className="relative bg-[#070707] px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-white overflow-hidden"
       >
-        {/* Background layers */}
         <GlowOrbs />
         <GridLines />
-        <Particles />
 
-        {/* Noise texture */}
-        <div className="pointer-events-none absolute inset-0 opacity-[0.02]"
-          style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")', backgroundSize: '200px' }}
-        />
+        <div className="relative mx-auto max-w-5xl w-full">
 
-        <div className="relative mx-auto max-w-6xl">
-
-          {/* â”€â”€ Section Title â”€â”€ */}
-          <Reveal className="mb-16 text-center">
-            <div className="inline-flex items-center gap-3 mb-4">
-              <div className="h-px w-16 bg-gradient-to-r from-transparent to-[#eba134]/60" />
-              <span className="text-xs font-semibold tracking-[0.3em] uppercase text-[#eba134]/70">Portfolio</span>
-              <div className="h-px w-16 bg-gradient-to-l from-transparent to-[#eba134]/60" />
+          {/* ── Section label + heading ── */}
+          <Reveal className="mb-14 sm:mb-20 text-center">
+            <div className="inline-flex items-center gap-3 mb-4 flex-wrap justify-center">
+              <div className="h-px w-12 sm:w-16 bg-gradient-to-r from-transparent to-[#eba134]/60" />
+              <span className="text-[11px] font-bold tracking-[0.28em] uppercase text-[#eba134]/70">Portfolio</span>
+              <div className="h-px w-12 sm:w-16 bg-gradient-to-l from-transparent to-[#eba134]/60" />
             </div>
             <DripHeading
               text="About"
               accent="Me"
               delay={0.1}
-              className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight"
-              style={{ fontFamily: "'Syne', sans-serif" }}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-tight"
             />
           </Reveal>
 
-          {/* â”€â”€ Hero Card â”€â”€ */}
-          <Reveal delay={0.1} className="mb-8">
+          {/* ── Hero card ── */}
+          <Reveal delay={0.1} className="mb-6 sm:mb-8">
             <div
-              className="book-card rounded-3xl border border-[#eba134]/12 bg-[#0d0d0d] p-6 sm:p-8"
-              style={{ animation: 'borderGlow 4s ease-in-out infinite' }}
+              className="bcard rounded-2xl sm:rounded-3xl border border-[#eba134]/12 bg-[#0d0d0d] p-5 sm:p-7 lg:p-8"
+              style={{ animation: 'borderGlo 4s ease-in-out infinite' }}
             >
-              {/* Scan line effect */}
-              <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
+              {/* scan line */}
+              <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl sm:rounded-3xl" aria-hidden>
                 <div style={{
-                  position: 'absolute', width: '100%', height: '2px',
-                  background: 'linear-gradient(90deg, transparent, rgba(235,161,52,0.15), transparent)',
-                  animation: 'scanLine 6s linear infinite',
+                  position:'absolute', left:0, right:0, height:'2px',
+                  background:'linear-gradient(90deg,transparent,rgba(235,161,52,0.13),transparent)',
+                  animation:'scanLine 7s linear infinite',
                 }} />
               </div>
 
-              <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12">
+              <div className="flex flex-col items-center gap-8 sm:gap-10 md:flex-row md:items-start md:gap-12">
 
-                {/* Photo */}
-                <div className="relative mx-auto flex-shrink-0 md:mx-0">
-                  <div className="relative h-52 w-52 sm:h-60 sm:w-60 rounded-2xl overflow-hidden"
-                    style={{ boxShadow: '0 0 40px rgba(235,161,52,0.15), 0 20px 60px rgba(0,0,0,0.6)' }}
+                {/* ── Photo ── */}
+                <div className="relative flex-shrink-0">
+                  {/* image container — fixed size, never stretches */}
+                  <div
+                    className="relative rounded-2xl overflow-hidden"
+                    style={{
+                      width:  'clamp(160px, 40vw, 220px)',
+                      height: 'clamp(160px, 40vw, 220px)',
+                      boxShadow: '0 0 36px rgba(235,161,52,0.14), 0 18px 52px rgba(0,0,0,0.55)',
+                      flexShrink: 0,
+                    }}
                   >
-                    <div className="absolute inset-0 rounded-2xl border border-[#eba134]/20 z-20" />
-                    {/* Corner accents */}
-                    <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#eba134] rounded-tl-xl z-30" />
-                    <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#eba134] rounded-tr-xl z-30" />
-                    <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#eba134] rounded-bl-xl z-30" />
-                    <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#eba134] rounded-br-xl z-30" />
-                    <div className="absolute inset-[2px] rounded-2xl overflow-hidden z-10">
-                      <img src={PROFILE_IMG} alt="Dhruv Kumar Yadav" className="h-full w-full object-cover object-top" />
-                      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 60%, rgba(7,7,7,0.3))' }} />
-                    </div>
+                    {/* border overlay */}
+                    <div className="absolute inset-0 rounded-2xl border border-[#eba134]/20 z-20 pointer-events-none" />
+                    {/* corner brackets */}
+                    {[
+                      'top-0 left-0 border-t-2 border-l-2 rounded-tl-xl',
+                      'top-0 right-0 border-t-2 border-r-2 rounded-tr-xl',
+                      'bottom-0 left-0 border-b-2 border-l-2 rounded-bl-xl',
+                      'bottom-0 right-0 border-b-2 border-r-2 rounded-br-xl',
+                    ].map((cls, i) => (
+                      <div key={i} className={`absolute w-4 h-4 border-[#eba134] z-30 ${cls}`} />
+                    ))}
+                    <img
+                      src={PROFILE_IMG}
+                      alt="Dhruv Kumar Yadav"
+                      className="absolute inset-0 h-full w-full object-cover object-top z-10"
+                    />
+                    <div className="absolute inset-0 z-10 pointer-events-none"
+                      style={{ background: 'linear-gradient(to bottom, transparent 58%, rgba(7,7,7,0.28))' }} />
                   </div>
 
-                  {/* Status badge */}
-                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 rounded-full border border-[#eba134]/30 bg-[#070707] px-4 py-1.5 text-xs font-bold text-[#eba134] whitespace-nowrap shadow-lg">
-                    <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#eba134', display: 'inline-block', animation: 'pulse-dot 1.5s ease-in-out infinite' }} />
-                    Available for Work
+                  {/* status badge — positioned relative to image, won't overlap text */}
+                  <div
+                    className="absolute -bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 rounded-full border border-[#eba134]/30 bg-[#070707] px-3 py-1.5 shadow-lg"
+                    style={{ whiteSpace: 'nowrap' }}
+                  >
+                    <span style={{
+                      width: 7, height: 7, borderRadius: '50%',
+                      background: '#eba134', display: 'inline-block', flexShrink: 0,
+                      animation: 'pulseDot 1.6s ease-in-out infinite',
+                    }} />
+                    <span className="text-[11px] font-bold text-[#eba134]">Available for Work</span>
                   </div>
                 </div>
 
-                {/* Bio */}
-                <div className="flex-1 pt-6">
-                  <Reveal delay={0.2}>
-                    <span className="inline-block mb-3 rounded-full border border-[#eba134]/30 bg-[#eba134]/8 px-4 py-1 text-xs font-bold tracking-widest uppercase text-[#eba134]">
+                {/* ── Bio ── */}
+                {/* mt accounts for badge overflow on mobile */}
+                <div className="flex-1 w-full min-w-0 pt-6 md:pt-0">
+                  <Reveal delay={0.18}>
+                    <span className="inline-block mb-3 rounded-full border border-[#eba134]/30 bg-[#eba134]/8 px-4 py-1 text-[11px] font-bold tracking-widest uppercase text-[#eba134]">
                       Full Stack Developer
                     </span>
                   </Reveal>
 
-                  <Reveal delay={0.25}>
-                    <h3 className="mb-5 text-3xl sm:text-4xl font-black text-white leading-tight shimmer-text"
-                      style={{ fontFamily: "'Syne', sans-serif" }}>
+                  <Reveal delay={0.22}>
+                    <h3
+                      className="mb-4 text-2xl sm:text-3xl font-black text-white leading-tight shimmer-text"
+                      style={{ fontFamily: "'Syne', sans-serif" }}
+                    >
                       Dhruv Kumar Yadav
                     </h3>
                   </Reveal>
 
                   <BookText
-                    delay={0.3}
+                    delay={0.28}
                     text="I am a motivated Full Stack Developer with hands-on experience building secure, scalable web applications using the MERN stack. I specialize in authentication systems, role-based access control, real-time communication with Socket.io, and building responsive admin panels. Currently pursuing B.Tech in Computer Science while continuously pushing my skills forward."
-                    className="leading-8 text-gray-400 text-sm sm:text-[15px]"
+                    className="leading-7 sm:leading-8 text-gray-400 text-sm sm:text-[15px]"
                   />
 
                   {/* Stats */}
-                  <Reveal delay={0.4}>
-                    <div className="mt-7 grid grid-cols-3 gap-3">
+                  <Reveal delay={0.38}>
+                    <div className="mt-6 grid grid-cols-3 gap-2 sm:gap-3">
                       {[
-                        { value: 3, suffix: '+', label: 'Projects' },
-                        { value: 6, suffix: 'mo+', label: 'Experience' },
-                        { value: 100, suffix: '%', label: 'Dedication' },
-                      ].map((s, i) => (
+                        { value: 3,   suffix: '+',   label: 'Projects',    cls: 'sf0' },
+                        { value: 6,   suffix: 'mo+', label: 'Experience',  cls: 'sf1' },
+                        { value: 100, suffix: '%',   label: 'Dedication',  cls: 'sf2' },
+                      ].map(({ value, suffix, label, cls }) => (
                         <div
-                          key={s.label}
-                          className="stat-box rounded-2xl border border-[#eba134]/15 bg-gradient-to-b from-[#eba134]/8 to-transparent p-3 text-center"
-                          style={{ animationDelay: `${i * 0.4}s` }}
+                          key={label}
+                          className={`${cls} rounded-xl sm:rounded-2xl border border-[#eba134]/15 bg-gradient-to-b from-[#eba134]/8 to-transparent p-2.5 sm:p-3 text-center`}
                         >
-                          <div className="text-xl font-black text-[#eba134]" style={{ fontFamily: "'Syne', sans-serif" }}>
-                            <Counter to={s.value} suffix={s.suffix} />
+                          <div className="text-lg sm:text-xl font-black text-[#eba134]" style={{ fontFamily: "'Syne', sans-serif" }}>
+                            <Counter to={value} suffix={suffix} />
                           </div>
-                          <div className="text-[10px] uppercase tracking-widest text-gray-500 mt-0.5">{s.label}</div>
+                          <div className="text-[9px] sm:text-[10px] uppercase tracking-widest text-gray-500 mt-0.5 leading-tight">{label}</div>
                         </div>
                       ))}
                     </div>
@@ -433,37 +387,33 @@ function About() {
             </div>
           </Reveal>
 
-          {/* â”€â”€ Education + Certifications â”€â”€ */}
-          <div className="mb-8 grid gap-6 md:grid-cols-2">
+          {/* ── Education + Certifications ── */}
+          <div className="mb-6 sm:mb-8 grid gap-5 sm:gap-6 md:grid-cols-2">
 
             {/* Education */}
-            <Reveal delay={0.15}>
-              <div className="book-card h-full rounded-3xl border border-[#eba134]/12 bg-[#0d0d0d] p-6 sm:p-7">
-                <div className="mb-6 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#eba134]/20 bg-[#eba134]/8 text-xl">ðŸŽ“</div>
-                  <h3 className="text-xl font-black text-[#eba134]" style={{ fontFamily: "'Syne', sans-serif" }}>Education</h3>
+            <Reveal delay={0.12}>
+              <div className="bcard h-full rounded-2xl sm:rounded-3xl border border-[#eba134]/12 bg-[#0d0d0d] p-5 sm:p-6 lg:p-7">
+                <div className="mb-5 sm:mb-6 flex items-center gap-3">
+                  <div className="flex h-9 w-9 sm:h-10 sm:w-10 flex-shrink-0 items-center justify-center rounded-xl border border-[#eba134]/20 bg-[#eba134]/8 text-lg sm:text-xl">🎓</div>
+                  <h3 className="text-lg sm:text-xl font-black text-[#eba134]" style={{ fontFamily: "'Syne', sans-serif" }}>Education</h3>
                 </div>
 
-                <div className="relative space-y-5 pl-5">
-                  <div className="absolute left-0 top-0 bottom-0 w-px"
-                    style={{ background: 'linear-gradient(to bottom, #eba134, rgba(235,161,52,0.1))' }} />
+                {/* timeline */}
+                <div className="relative space-y-4 pl-5">
+                  <div className="absolute left-0 top-1 bottom-1 w-px"
+                    style={{ background: 'linear-gradient(to bottom, #eba134, rgba(235,161,52,0.08))' }} />
 
                   {education.map((e, i) => (
-                    <Reveal key={i} delay={0.1 + i * 0.08}>
+                    <Reveal key={i} delay={0.08 + i * 0.07}>
                       <div className="relative group">
-                        <div className="absolute -left-5 top-1.5 h-2.5 w-2.5 rounded-full border-2 border-[#eba134] bg-[#070707] z-10"
-                          style={{ animation: 'timelineDot 2s ease-out infinite', animationDelay: `${i * 0.5}s` }} />
-
-                        <div className="rounded-xl border border-[#eba134]/10 bg-[#eba134]/4 p-3.5 transition-all duration-300 group-hover:border-[#eba134]/25 group-hover:bg-[#eba134]/8">
-                          <p className="font-bold text-white text-sm leading-snug">
-                            {e.degree.split('').map((ch, ci) => (
-                              <span key={ci} style={{
-                                display: 'inline-block',
-                                whiteSpace: ch === ' ' ? 'pre' : 'normal',
-                              }}>{ch}</span>
-                            ))}
-                          </p>
-                          <p className="text-xs text-gray-500 mt-1">{e.institute}</p>
+                        {/* dot */}
+                        <div
+                          className="absolute -left-5 top-[14px] h-[11px] w-[11px] rounded-full border-2 border-[#eba134] bg-[#070707] z-10"
+                          style={{ animation: 'tlDot 2.2s ease-out infinite', animationDelay: `${i * 0.55}s` }}
+                        />
+                        <div className="rounded-xl border border-[#eba134]/10 bg-[#eba134]/4 p-3 sm:p-3.5 transition-all duration-300 group-hover:border-[#eba134]/25 group-hover:bg-[#eba134]/8">
+                          <p className="font-bold text-white text-[13px] sm:text-sm leading-snug break-words">{e.degree}</p>
+                          <p className="text-[11px] sm:text-xs text-gray-500 mt-1 leading-snug break-words">{e.institute}</p>
                           <span className="mt-2 inline-block rounded-full border border-[#eba134]/25 bg-[#eba134]/10 px-2.5 py-0.5 text-[10px] font-bold text-[#eba134] tracking-wider uppercase">
                             {e.year}
                           </span>
@@ -476,31 +426,28 @@ function About() {
             </Reveal>
 
             {/* Certifications */}
-            <Reveal delay={0.2}>
-              <div className="book-card h-full rounded-3xl border border-[#eba134]/12 bg-[#0d0d0d] p-6 sm:p-7">
-                <div className="mb-6 flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#eba134]/20 bg-[#eba134]/8 text-xl">ðŸ†</div>
-                  <h3 className="text-xl font-black text-[#eba134]" style={{ fontFamily: "'Syne', sans-serif" }}>Certifications</h3>
+            <Reveal delay={0.18}>
+              <div className="bcard h-full rounded-2xl sm:rounded-3xl border border-[#eba134]/12 bg-[#0d0d0d] p-5 sm:p-6 lg:p-7">
+                <div className="mb-5 sm:mb-6 flex items-center gap-3">
+                  <div className="flex h-9 w-9 sm:h-10 sm:w-10 flex-shrink-0 items-center justify-center rounded-xl border border-[#eba134]/20 bg-[#eba134]/8 text-lg sm:text-xl">🏆</div>
+                  <h3 className="text-lg sm:text-xl font-black text-[#eba134]" style={{ fontFamily: "'Syne', sans-serif" }}>Certifications</h3>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {certifications.map((c, i) => (
-                    <Reveal key={i} delay={0.1 + i * 0.1}>
-                      <div className="cert-card rounded-2xl border border-[#eba134]/10 bg-[#eba134]/4 p-4 cursor-default">
+                    <Reveal key={i} delay={0.08 + i * 0.09}>
+                      <div className="cert-row rounded-xl sm:rounded-2xl border border-[#eba134]/10 bg-[#eba134]/4 p-3.5 sm:p-4 cursor-default">
                         <div className="flex items-start gap-3">
-                          <div className="flex-shrink-0 mt-0.5 h-7 w-7 rounded-lg bg-[#eba134]/15 flex items-center justify-center text-[10px] font-black text-[#eba134]">
+                          {/* number badge */}
+                          <div className="flex-shrink-0 h-7 w-7 rounded-lg bg-[#eba134]/15 flex items-center justify-center text-[10px] font-black text-[#eba134]">
                             {String(i + 1).padStart(2, '0')}
                           </div>
-                          <div>
-                            <BookText
-                              text={c.title}
-                              delay={0.15 + i * 0.1}
-                              className="font-bold text-white text-sm leading-snug"
-                            />
-                            <div className="mt-1.5 flex items-center gap-2">
-                              <span className="text-xs text-gray-500">{c.issuer}</span>
-                              <span className="h-1 w-1 rounded-full bg-[#eba134]/40" />
-                              <span className="text-xs font-bold text-[#eba134]">{c.year}</span>
+                          <div className="min-w-0">
+                            <p className="font-bold text-white text-[13px] sm:text-sm leading-snug break-words">{c.title}</p>
+                            <div className="mt-1.5 flex items-center gap-2 flex-wrap">
+                              <span className="text-[11px] sm:text-xs text-gray-500">{c.issuer}</span>
+                              <span className="h-1 w-1 rounded-full bg-[#eba134]/40 flex-shrink-0" />
+                              <span className="text-[11px] sm:text-xs font-bold text-[#eba134]">{c.year}</span>
                             </div>
                           </div>
                         </div>
@@ -509,66 +456,69 @@ function About() {
                   ))}
                 </div>
 
-                {/* Decorative badge */}
-                <div className="mt-6 rounded-2xl border border-dashed border-[#eba134]/15 p-4 text-center">
-                  <BookText
-                    text="Constantly learning â€¢ Always building â€¢ Never stopping"
-                    delay={0.4}
-                    className="text-xs text-gray-600 italic"
-                  />
-                </div>
+                {/* decorative tagline */}
+                <Reveal delay={0.4}>
+                  <div className="mt-5 rounded-xl border border-dashed border-[#eba134]/15 p-3.5 text-center">
+                    <p className="text-[11px] sm:text-xs text-gray-600 italic">
+                      Constantly learning&nbsp;•&nbsp;Always building&nbsp;•&nbsp;Never stopping
+                    </p>
+                  </div>
+                </Reveal>
               </div>
             </Reveal>
           </div>
 
-          {/* â”€â”€ Work Experience â”€â”€ */}
+          {/* ── Work Experience ── */}
           <Reveal delay={0.1}>
-            <div className="book-card rounded-3xl border border-[#eba134]/12 bg-[#0d0d0d] p-6 sm:p-8">
-              <div className="mb-8 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#eba134]/20 bg-[#eba134]/8 text-xl">ðŸ’¼</div>
-                <h3 className="text-xl font-black text-[#eba134]" style={{ fontFamily: "'Syne', sans-serif" }}>Work Experience</h3>
-                <div className="flex-1 h-px bg-gradient-to-r from-[#eba134]/20 to-transparent" />
+            <div className="bcard rounded-2xl sm:rounded-3xl border border-[#eba134]/12 bg-[#0d0d0d] p-5 sm:p-7 lg:p-8">
+              <div className="mb-6 sm:mb-8 flex items-center gap-3 flex-wrap">
+                <div className="flex h-9 w-9 sm:h-10 sm:w-10 flex-shrink-0 items-center justify-center rounded-xl border border-[#eba134]/20 bg-[#eba134]/8 text-lg sm:text-xl">💼</div>
+                <h3 className="text-lg sm:text-xl font-black text-[#eba134]" style={{ fontFamily: "'Syne', sans-serif" }}>Work Experience</h3>
+                <div className="flex-1 h-px bg-gradient-to-r from-[#eba134]/20 to-transparent min-w-[20px]" />
               </div>
 
-              <div className="relative space-y-8 pl-6 sm:pl-8">
-                {/* Timeline spine */}
-                <div className="absolute left-0 top-4 bottom-4 w-px"
-                  style={{ background: 'linear-gradient(to bottom, #eba134, rgba(235,161,52,0.15))' }} />
+              {/* timeline */}
+              <div className="relative space-y-6 sm:space-y-8 pl-5 sm:pl-7">
+                <div className="absolute left-0 top-3 bottom-3 w-px"
+                  style={{ background: 'linear-gradient(to bottom, #eba134, rgba(235,161,52,0.12))' }} />
 
                 {experience.map((exp, i) => (
-                  <Reveal key={i} delay={0.1 + i * 0.15}>
+                  <Reveal key={i} delay={0.1 + i * 0.14}>
                     <div className="relative group">
-                      {/* Dot */}
-                      <div className="absolute -left-6 sm:-left-8 top-4 flex h-4 w-4 items-center justify-center z-10">
-                        <div className="h-3 w-3 rounded-full border-2 border-[#eba134] bg-[#070707]"
-                          style={{ animation: 'timelineDot 2.5s ease-out infinite', animationDelay: `${i * 0.8}s` }} />
+                      {/* timeline dot */}
+                      <div className="absolute -left-5 sm:-left-7 top-4 flex items-center justify-center z-10">
+                        <div
+                          className="h-[11px] w-[11px] rounded-full border-2 border-[#eba134] bg-[#070707]"
+                          style={{ animation: 'tlDot 2.5s ease-out infinite', animationDelay: `${i * 0.9}s` }}
+                        />
                       </div>
 
-                      <div className="exp-card rounded-2xl border border-[#eba134]/12 bg-[#eba134]/4 p-5">
-                        {/* Header */}
-                        <div className="mb-1 flex flex-wrap items-start justify-between gap-3">
-                          <h4 className="text-base sm:text-lg font-black text-white" style={{ fontFamily: "'Syne', sans-serif" }}>
+                      <div className="exp-card rounded-xl sm:rounded-2xl border border-[#eba134]/12 bg-[#eba134]/4 p-4 sm:p-5">
+                        {/* header row */}
+                        <div className="mb-1 flex flex-wrap items-start justify-between gap-2">
+                          <h4
+                            className="text-[15px] sm:text-base lg:text-lg font-black text-white leading-snug break-words min-w-0"
+                            style={{ fontFamily: "'Syne', sans-serif" }}
+                          >
                             {exp.title}
                           </h4>
-                          <span className="flex-shrink-0 rounded-full border border-[#eba134]/30 bg-[#eba134]/10 px-3 py-0.5 text-[11px] font-bold text-[#eba134]">
+                          <span className="flex-shrink-0 rounded-full border border-[#eba134]/30 bg-[#eba134]/10 px-2.5 sm:px-3 py-0.5 text-[10px] sm:text-[11px] font-bold text-[#eba134] whitespace-nowrap">
                             {exp.period}
                           </span>
                         </div>
 
-                        <p className="mb-4 text-xs font-medium text-gray-500 flex items-center gap-1.5">
-                          <span className="inline-block h-1 w-1 rounded-full bg-[#eba134]/50" />
+                        <p className="mb-3 sm:mb-4 text-[11px] sm:text-xs font-medium text-gray-500 flex items-center gap-1.5 flex-wrap">
+                          <span className="inline-block h-1 w-1 rounded-full bg-[#eba134]/50 flex-shrink-0" />
                           {exp.company}
                         </p>
 
-                        <ul className="space-y-2">
+                        <ul className="space-y-1.5 sm:space-y-2">
                           {exp.points.map((pt, j) => (
-                            <li key={j} className="flex items-start gap-2.5 group/pt">
-                              <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-[#eba134]/50 group-hover/pt:bg-[#eba134] transition-colors" />
-                              <BookText
-                                text={pt}
-                                delay={0.05 * j}
-                                className="text-sm text-gray-400 leading-7"
-                              />
+                            <li key={j} className="flex items-start gap-2 group/pt">
+                              <span className="mt-[9px] h-1 w-1 flex-shrink-0 rounded-full bg-[#eba134]/45 group-hover/pt:bg-[#eba134] transition-colors" />
+                              <span className="text-[13px] sm:text-sm text-gray-400 leading-6 sm:leading-7 break-words min-w-0">
+                                {pt}
+                              </span>
                             </li>
                           ))}
                         </ul>

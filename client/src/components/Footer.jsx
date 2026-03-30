@@ -34,7 +34,7 @@ const socialLinks = [
   },
   {
     name: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/dhruv-yadav-8b1a8b1b1/',
+    href: 'https://www.linkedin.com/in/dhruv-yadav-5a40b8370/',
     icon: LinkedInIcon,
   },
   {

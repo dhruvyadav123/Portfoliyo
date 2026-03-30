@@ -5,7 +5,7 @@ const contactInfo = [
   { icon: '📞', label: 'Phone', value: '+91 91797 90800', href: 'tel:+919179790800' },
   { icon: '✉️', label: 'Email', value: 'yadavdhruv0800@gmail.com', href: 'mailto:yadavdhruv0800@gmail.com' },
   { icon: '🐙', label: 'GitHub', value: 'github.com/dhruvyadav123', href: 'https://github.com/dhruvyadav123' },
-  { icon: '💼', label: 'LinkedIn', value: 'LinkedIn Profile', href: 'https://www.linkedin.com/in/dhruv-yadav-8b1a8b1b1/' },
+  { icon: '💼', label: 'LinkedIn', value: 'LinkedIn Profile', href: 'https://www.linkedin.com/in/dhruv-yadav-5a40b8370/' },
   { icon: '🌐', label: 'Portfolio', value: 'Vercel Portfolio', href: 'https://vercel.com/dhruv-yadavs-projects-2d5ef84a' },
 ];
 

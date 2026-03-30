@@ -137,11 +137,7 @@ function ResumePreviewPage() {
               as="h1"
               className="mt-3 text-3xl font-black sm:text-4xl"
             />
-            <BookText
-              delay={0.1}
-              text="Yeh wahi final output hai jo browser me View Resume par dikhai dega. Download Resume se direct PDF file download hogi."
-              className="mt-3 text-sm leading-7 text-gray-400 sm:text-base"
-            />
+          
           </div>
 
           <Reveal delay={0.15} className="flex flex-wrap gap-3">
