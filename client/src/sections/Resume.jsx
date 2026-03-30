@@ -132,8 +132,9 @@ function ResumePreviewPage() {
           <div className="max-w-3xl">
             <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#eba134]">Resume Preview</p>
             <DripHeading
-              text="Styled Resume Preview with"
-              accent="PDF Download"
+              text="Styled Resume Preview with" accent="PDF Download"
+               
+             
               as="h1"
               className="mt-3 text-3xl font-black sm:text-4xl"
             />

@@ -20,7 +20,7 @@ const skillsData = {
   database: [
     { name: 'MongoDB', icon: '🍃' },
     { name: 'MongoDB Atlas', icon: '☁️' },
-    { name: 'Mongoose', icon: '🔗' },
+    
   ],
   tools: [
     { name: 'Git', icon: '🐙' },
@@ -28,6 +28,7 @@ const skillsData = {
     { name: 'Postman', icon: '📮' },
     { name: 'VS Code', icon: '💻' },
     { name: 'Vercel', icon: '▲' },
+    { name: 'Render', icon: '🚀' },
   ],
   concepts: [
     { name: 'CRUD Operations', icon: '🔄' },

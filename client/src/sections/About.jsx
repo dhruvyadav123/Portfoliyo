@@ -258,11 +258,11 @@ function About() {
         <GlowOrbs />
         <GridLines />
 
-        <div className="relative mx-auto max-w-5xl w-full">
+        <div className="relative mx-auto max-w-5xl w-full space-y-8 sm:space-y-10 lg:space-y-12">
 
           {/* ── Section label + heading ── */}
-          <Reveal className="mb-14 sm:mb-20 text-center">
-            <div className="inline-flex items-center gap-3 mb-4 flex-wrap justify-center">
+          <Reveal className="text-center">
+            <div className="mb-5 inline-flex items-center gap-3 flex-wrap justify-center">
               <div className="h-px w-12 sm:w-16 bg-gradient-to-r from-transparent to-[#eba134]/60" />
               <span className="text-[11px] font-bold tracking-[0.28em] uppercase text-[#eba134]/70">Portfolio</span>
               <div className="h-px w-12 sm:w-16 bg-gradient-to-l from-transparent to-[#eba134]/60" />
@@ -276,9 +276,9 @@ function About() {
           </Reveal>
 
           {/* ── Hero card ── */}
-          <Reveal delay={0.1} className="mb-6 sm:mb-8">
+          <Reveal delay={0.1}>
             <div
-              className="bcard rounded-2xl sm:rounded-3xl border border-[#eba134]/12 bg-[#0d0d0d] p-5 sm:p-7 lg:p-8"
+              className="bcard rounded-2xl sm:rounded-3xl border border-[#eba134]/12 bg-[#0d0d0d] p-5 sm:p-7 lg:p-9"
               style={{ animation: 'borderGlo 4s ease-in-out infinite' }}
             >
               {/* scan line */}
@@ -290,10 +290,10 @@ function About() {
                 }} />
               </div>
 
-              <div className="flex flex-col items-center gap-8 sm:gap-10 md:flex-row md:items-start md:gap-12">
+              <div className="flex flex-col items-center gap-10 sm:gap-12 md:flex-row md:items-start md:gap-10 lg:gap-14">
 
                 {/* ── Photo ── */}
-                <div className="relative flex-shrink-0">
+                <div className="relative flex-shrink-0 pb-6 sm:pb-7 md:pb-0">
                   {/* image container — fixed size, never stretches */}
                   <div
                     className="relative rounded-2xl overflow-hidden"
@@ -326,7 +326,7 @@ function About() {
 
                   {/* status badge — positioned relative to image, won't overlap text */}
                   <div
-                    className="absolute -bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 rounded-full border border-[#eba134]/30 bg-[#070707] px-3 py-1.5 shadow-lg"
+                    className="absolute -bottom-3.5 sm:-bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 rounded-full border border-[#eba134]/30 bg-[#070707] px-3 py-1.5 shadow-lg"
                     style={{ whiteSpace: 'nowrap' }}
                   >
                     <span style={{
@@ -339,8 +339,7 @@ function About() {
                 </div>
 
                 {/* ── Bio ── */}
-                {/* mt accounts for badge overflow on mobile */}
-                <div className="flex-1 w-full min-w-0 pt-6 md:pt-0">
+                <div className="flex-1 w-full min-w-0">
                   <Reveal delay={0.18}>
                     <span className="inline-block mb-3 rounded-full border border-[#eba134]/30 bg-[#eba134]/8 px-4 py-1 text-[11px] font-bold tracking-widest uppercase text-[#eba134]">
                       Full Stack Developer
@@ -364,7 +363,7 @@ function About() {
 
                   {/* Stats */}
                   <Reveal delay={0.38}>
-                    <div className="mt-6 grid grid-cols-3 gap-2 sm:gap-3">
+                    <div className="mt-7 grid grid-cols-3 gap-3 sm:gap-4">
                       {[
                         { value: 3,   suffix: '+',   label: 'Projects',    cls: 'sf0' },
                         { value: 6,   suffix: 'mo+', label: 'Experience',  cls: 'sf1' },
@@ -388,7 +387,7 @@ function About() {
           </Reveal>
 
           {/* ── Education + Certifications ── */}
-          <div className="mb-6 sm:mb-8 grid gap-5 sm:gap-6 md:grid-cols-2">
+          <div className="grid gap-6 sm:gap-7 md:grid-cols-2">
 
             {/* Education */}
             <Reveal delay={0.12}>
@@ -399,7 +398,7 @@ function About() {
                 </div>
 
                 {/* timeline */}
-                <div className="relative space-y-4 pl-5">
+                <div className="relative space-y-5 pl-6 sm:pl-7">
                   <div className="absolute left-0 top-1 bottom-1 w-px"
                     style={{ background: 'linear-gradient(to bottom, #eba134, rgba(235,161,52,0.08))' }} />
 
@@ -408,7 +407,7 @@ function About() {
                       <div className="relative group">
                         {/* dot */}
                         <div
-                          className="absolute -left-5 top-[14px] h-[11px] w-[11px] rounded-full border-2 border-[#eba134] bg-[#070707] z-10"
+                          className="absolute -left-6 sm:-left-7 top-[14px] h-[11px] w-[11px] rounded-full border-2 border-[#eba134] bg-[#070707] z-10"
                           style={{ animation: 'tlDot 2.2s ease-out infinite', animationDelay: `${i * 0.55}s` }}
                         />
                         <div className="rounded-xl border border-[#eba134]/10 bg-[#eba134]/4 p-3 sm:p-3.5 transition-all duration-300 group-hover:border-[#eba134]/25 group-hover:bg-[#eba134]/8">
@@ -433,7 +432,7 @@ function About() {
                   <h3 className="text-lg sm:text-xl font-black text-[#eba134]" style={{ fontFamily: "'Syne', sans-serif" }}>Certifications</h3>
                 </div>
 
-                <div className="space-y-3 sm:space-y-4">
+                <div className="space-y-4 sm:space-y-5">
                   {certifications.map((c, i) => (
                     <Reveal key={i} delay={0.08 + i * 0.09}>
                       <div className="cert-row rounded-xl sm:rounded-2xl border border-[#eba134]/10 bg-[#eba134]/4 p-3.5 sm:p-4 cursor-default">
@@ -458,7 +457,7 @@ function About() {
 
                 {/* decorative tagline */}
                 <Reveal delay={0.4}>
-                  <div className="mt-5 rounded-xl border border-dashed border-[#eba134]/15 p-3.5 text-center">
+                  <div className="mt-6 rounded-xl border border-dashed border-[#eba134]/15 p-3.5 text-center">
                     <p className="text-[11px] sm:text-xs text-gray-600 italic">
                       Constantly learning&nbsp;•&nbsp;Always building&nbsp;•&nbsp;Never stopping
                     </p>
@@ -470,7 +469,7 @@ function About() {
 
           {/* ── Work Experience ── */}
           <Reveal delay={0.1}>
-            <div className="bcard rounded-2xl sm:rounded-3xl border border-[#eba134]/12 bg-[#0d0d0d] p-5 sm:p-7 lg:p-8">
+            <div className="bcard rounded-2xl sm:rounded-3xl border border-[#eba134]/12 bg-[#0d0d0d] p-5 sm:p-7 lg:p-9">
               <div className="mb-6 sm:mb-8 flex items-center gap-3 flex-wrap">
                 <div className="flex h-9 w-9 sm:h-10 sm:w-10 flex-shrink-0 items-center justify-center rounded-xl border border-[#eba134]/20 bg-[#eba134]/8 text-lg sm:text-xl">💼</div>
                 <h3 className="text-lg sm:text-xl font-black text-[#eba134]" style={{ fontFamily: "'Syne', sans-serif" }}>Work Experience</h3>
@@ -478,7 +477,7 @@ function About() {
               </div>
 
               {/* timeline */}
-              <div className="relative space-y-6 sm:space-y-8 pl-5 sm:pl-7">
+              <div className="relative space-y-6 sm:space-y-7 pl-6 sm:pl-8">
                 <div className="absolute left-0 top-3 bottom-3 w-px"
                   style={{ background: 'linear-gradient(to bottom, #eba134, rgba(235,161,52,0.12))' }} />
 
@@ -486,16 +485,16 @@ function About() {
                   <Reveal key={i} delay={0.1 + i * 0.14}>
                     <div className="relative group">
                       {/* timeline dot */}
-                      <div className="absolute -left-5 sm:-left-7 top-4 flex items-center justify-center z-10">
+                      <div className="absolute -left-6 sm:-left-8 top-4 flex items-center justify-center z-10">
                         <div
                           className="h-[11px] w-[11px] rounded-full border-2 border-[#eba134] bg-[#070707]"
                           style={{ animation: 'tlDot 2.5s ease-out infinite', animationDelay: `${i * 0.9}s` }}
                         />
                       </div>
 
-                      <div className="exp-card rounded-xl sm:rounded-2xl border border-[#eba134]/12 bg-[#eba134]/4 p-4 sm:p-5">
+                      <div className="exp-card rounded-xl sm:rounded-2xl border border-[#eba134]/12 bg-[#eba134]/4 p-4 sm:p-5 lg:p-6">
                         {/* header row */}
-                        <div className="mb-1 flex flex-wrap items-start justify-between gap-2">
+                        <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
                           <h4
                             className="text-[15px] sm:text-base lg:text-lg font-black text-white leading-snug break-words min-w-0"
                             style={{ fontFamily: "'Syne', sans-serif" }}
@@ -507,7 +506,7 @@ function About() {
                           </span>
                         </div>
 
-                        <p className="mb-3 sm:mb-4 text-[11px] sm:text-xs font-medium text-gray-500 flex items-center gap-1.5 flex-wrap">
+                        <p className="mb-4 sm:mb-5 text-[11px] sm:text-xs font-medium text-gray-500 flex items-center gap-1.5 flex-wrap">
                           <span className="inline-block h-1 w-1 rounded-full bg-[#eba134]/50 flex-shrink-0" />
                           {exp.company}
                         </p>
