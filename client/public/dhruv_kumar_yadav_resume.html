@@ -1,658 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Dhruv Kumar Yadav - Full Stack Developer Resume</title>
-<link
-  href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap"
-  rel="stylesheet"
-/>
-<style>
-  :root {
-    --navy: #0f2545;
-    --blue: #1a4480;
-    --accent: #2563eb;
-    --light-blue: #dbeafe;
-    --pale: #f0f6ff;
-    --text: #1e293b;
-    --muted: #475569;
-    --border: #cbd5e1;
-    --white: #ffffff;
-  }
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    font-family: "DM Sans", sans-serif;
-    background: var(--pale);
-    color: var(--text);
-    font-size: 12.5px;
-    line-height: 1.4;
-  }
-
-  .page {
-    max-width: 860px;
-    margin: 24px auto;
-    background: var(--white);
-    box-shadow: 0 8px 40px rgba(15, 37, 69, 0.13);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  .header {
-    background: var(--navy);
-    color: var(--white);
-    padding: 26px 44px 20px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .header::before {
-    content: "";
-    position: absolute;
-    top: -60px;
-    right: -60px;
-    width: 240px;
-    height: 240px;
-    border-radius: 50%;
-    background: rgba(37, 99, 235, 0.18);
-    pointer-events: none;
-  }
-
-  .header::after {
-    content: "";
-    position: absolute;
-    bottom: -40px;
-    left: 200px;
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    background: rgba(37, 99, 235, 0.1);
-    pointer-events: none;
-  }
-
-  .name-block h1 {
-    font-family: "DM Serif Display", serif;
-    font-size: 30px;
-    letter-spacing: 0.4px;
-    line-height: 1.1;
-    margin-bottom: 3px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .name-block .role {
-    font-size: 11.5px;
-    font-weight: 500;
-    color: #93c5fd;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    position: relative;
-    z-index: 1;
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3px 24px;
-    margin-top: 12px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .contact-grid a,
-  .contact-grid span {
-    color: #bfdbfe;
-    font-size: 11.5px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .contact-grid a:hover {
-    color: #fff;
-  }
-
-  .body {
-    display: grid;
-    grid-template-columns: 248px 1fr;
-    gap: 0;
-  }
-
-  .sidebar {
-    background: var(--pale);
-    border-right: 1px solid var(--border);
-    padding: 18px 18px;
-  }
-
-  .main {
-    padding: 18px 28px;
-  }
-
-  .section {
-    margin-bottom: 16px;
-  }
-
-  .section:last-child {
-    margin-bottom: 0;
-  }
-
-  .section-title {
-    font-family: "DM Serif Display", serif;
-    font-size: 12.5px;
-    color: var(--blue);
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 3px;
-    margin-bottom: 9px;
-  }
-
-  .skill-group {
-    margin-bottom: 8px;
-  }
-
-  .skill-group:last-child {
-    margin-bottom: 0;
-  }
-
-  .skill-group-label {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--navy);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 4px;
-  }
-
-  .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3px;
-  }
-
-  .tag {
-    background: var(--light-blue);
-    color: var(--blue);
-    font-size: 10.5px;
-    font-weight: 600;
-    padding: 2px 7px;
-    border-radius: 20px;
-    border: 1px solid #bfdbfe;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-  }
-
-  .tag .ti {
-    font-size: 10px;
-    line-height: 1;
-  }
-
-  .edu-item {
-    margin-bottom: 8px;
-  }
-
-  .edu-item:last-child {
-    margin-bottom: 0;
-  }
-
-  .edu-degree {
-    font-weight: 700;
-    font-size: 11.5px;
-    color: var(--navy);
-    line-height: 1.3;
-  }
-
-  .edu-inst {
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .edu-year {
-    display: inline-block;
-    margin-top: 2px;
-    font-size: 10px;
-    font-weight: 600;
-    background: var(--navy);
-    color: #fff;
-    padding: 1px 7px;
-    border-radius: 20px;
-  }
-
-  .cert-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
-    margin-bottom: 6px;
-    font-size: 11px;
-  }
-
-  .cert-item:last-child {
-    margin-bottom: 0;
-  }
-
-  .cert-icon {
-    color: var(--accent);
-    font-size: 12px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .cert-name {
-    font-weight: 600;
-    color: var(--navy);
-    line-height: 1.3;
-    font-size: 11.5px;
-  }
-
-  .cert-org {
-    color: var(--muted);
-    font-size: 10.5px;
-  }
-
-  .exp-item {
-    margin-bottom: 11px;
-  }
-
-  .exp-item:last-child {
-    margin-bottom: 0;
-  }
-
-  .exp-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1px;
-  }
-
-  .exp-title {
-    font-weight: 700;
-    font-size: 12.5px;
-    color: var(--navy);
-  }
-
-  .exp-date {
-    font-size: 11px;
-    color: var(--accent);
-    font-weight: 600;
-    white-space: nowrap;
-    margin-left: 8px;
-  }
-
-  .exp-company {
-    font-size: 11.5px;
-    color: var(--muted);
-    font-weight: 500;
-    margin-bottom: 3px;
-  }
-
-  .exp-bullets,
-  .proj-features {
-    list-style: none;
-    padding: 0;
-  }
-
-  .exp-bullets li,
-  .proj-features li {
-    position: relative;
-    padding-left: 12px;
-    line-height: 1.4;
-  }
-
-  .exp-bullets li {
-    font-size: 11.5px;
-    color: var(--text);
-    margin-bottom: 2px;
-  }
-
-  .proj-item {
-    margin-bottom: 10px;
-  }
-
-  .proj-item:last-child {
-    margin-bottom: 0;
-  }
-
-  .proj-header {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 2px;
-  }
-
-  .proj-name {
-    font-weight: 700;
-    font-size: 12px;
-    color: var(--navy);
-  }
-
-  .proj-tech {
-    font-size: 10px;
-    color: var(--accent);
-    font-weight: 600;
-    background: var(--light-blue);
-    padding: 1px 7px;
-    border-radius: 20px;
-    border: 1px solid #bfdbfe;
-  }
-
-  .proj-features li {
-    font-size: 11px;
-    color: var(--muted);
-    margin-bottom: 1px;
-  }
-
-  .exp-bullets li::before,
-  .proj-features li::before {
-    content: "\25B8";
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-size: 9px;
-  }
-
-  .exp-bullets li::before {
-    top: 3px;
-  }
-
-  .proj-features li::before {
-    top: 2px;
-  }
-
-  .summary-text {
-    font-size: 11.5px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  .summary-text strong {
-    color: var(--navy);
-  }
-
-  @media print {
-    @page {
-      size: A4;
-      margin: 10mm;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dhruv Kumar Yadav - Full Stack Developer Resume</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --navy: #10223f;
+      --blue: #2864dc;
+      --blue-soft: #eaf1ff;
+      --muted: #556176;
+      --line: #d8e0ed;
+      --paper: #ffffff;
+      --canvas: #edf2f9;
     }
 
-    html,
+    * { box-sizing: border-box; }
+    html { background: var(--canvas); }
     body {
-      background: white;
-    }
-
-    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
       font-size: 12px;
+      line-height: 1.5;
     }
 
     .page {
-      box-shadow: none;
-      margin: 0;
-      border-radius: 0;
-      max-width: 100%;
-    }
-
-    .header::before,
-    .header::after {
-      display: none;
-    }
-  }
-
-  @media (max-width: 680px) {
-    .body {
-      grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-      border-right: none;
-      border-bottom: 1px solid var(--border);
+      width: min(960px, calc(100% - 32px));
+      margin: 24px auto;
+      overflow: hidden;
+      border-radius: 18px;
+      background: var(--paper);
+      box-shadow: 0 20px 60px rgba(16, 34, 63, 0.14);
     }
 
     .header {
-      padding: 18px;
+      position: relative;
+      padding: 32px 42px 26px;
+      color: white;
+      background: linear-gradient(125deg, #0d1d36 0%, #173b72 62%, #2864dc 140%);
     }
 
-    .main {
-      padding: 16px;
+    .header::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -110px;
+      width: 280px;
+      height: 280px;
+      border: 42px solid rgba(255, 255, 255, 0.055);
+      border-radius: 50%;
     }
 
-    .contact-grid {
-      grid-template-columns: 1fr;
+    .name, .role, .contacts { position: relative; z-index: 1; }
+    .name { margin: 0; font-size: 32px; line-height: 1.1; letter-spacing: -0.7px; }
+    .role { margin-top: 7px; color: #bcd4ff; font-size: 13px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase; }
+    .contacts { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 18px; }
+    .contacts a, .contacts span { color: #e0eaff; text-decoration: none; font-size: 11px; }
+    .contacts a:hover { color: white; }
+
+    .content { display: grid; grid-template-columns: 31% 69%; }
+    .sidebar { padding: 26px 24px 30px; background: #f6f8fc; border-right: 1px solid var(--line); }
+    .main { padding: 26px 32px 32px; }
+    .section { margin-bottom: 22px; }
+    .section:last-child { margin-bottom: 0; }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 11px;
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+    .section-title::after { content: ""; height: 2px; flex: 1; background: linear-gradient(90deg, var(--blue), transparent); }
+    .summary { margin: 0; color: var(--muted); line-height: 1.65; }
+    .summary strong { color: var(--ink); }
+
+    .skill-group { margin-bottom: 13px; }
+    .skill-group:last-child { margin-bottom: 0; }
+    .skill-label { margin-bottom: 6px; color: var(--navy); font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag { padding: 3px 7px; color: #2457b0; background: var(--blue-soft); border: 1px solid #cfddfb; border-radius: 999px; font-size: 10px; font-weight: 650; }
+
+    .edu { padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .edu:last-child { border-bottom: 0; padding-bottom: 0; }
+    .edu:first-of-type { padding-top: 0; }
+    .edu strong { display: block; color: var(--navy); font-size: 11.5px; }
+    .edu span { display: block; margin-top: 3px; color: var(--muted); font-size: 10.5px; }
+
+    .deploy-list { display: grid; gap: 7px; }
+    .deploy-item { padding: 9px 10px; border: 1px solid var(--line); border-radius: 10px; background: white; }
+    .deploy-item strong { color: var(--navy); font-size: 10.5px; }
+    .deploy-item p { margin: 3px 0 0; color: var(--muted); font-size: 9.5px; line-height: 1.45; }
+
+    .role-card { padding-left: 16px; border-left: 3px solid var(--blue); }
+    .role-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .role-head h3 { margin: 0; color: var(--navy); font-size: 14px; }
+    .date { flex: none; padding: 3px 8px; color: var(--blue); background: var(--blue-soft); border-radius: 999px; font-size: 10px; font-weight: 750; }
+    .company { margin: 3px 0 8px; color: var(--blue); font-size: 11px; font-weight: 700; }
+    ul { margin: 0; padding-left: 17px; }
+    li { margin-bottom: 4px; color: var(--muted); }
+    li::marker { color: var(--blue); }
+
+    .project { padding: 14px; border: 1px solid var(--line); border-radius: 13px; margin-bottom: 11px; }
+    .project:last-child { margin-bottom: 0; }
+    .project-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 7px; }
+    .project h3 { margin: 0; color: var(--navy); font-size: 13px; }
+    .project-subtitle { margin-top: 2px; color: var(--blue); font-size: 10px; font-weight: 700; }
+    .project-tech { max-width: 50%; color: var(--muted); font-size: 9px; font-weight: 650; text-align: right; }
+    .project li { margin-bottom: 3px; font-size: 10.5px; }
+
+    @media (max-width: 720px) {
+      .page { width: 100%; margin: 0; border-radius: 0; }
+      .header { padding: 26px 22px; }
+      .name { font-size: 27px; }
+      .content { grid-template-columns: 1fr; }
+      .sidebar { border-right: 0; border-bottom: 1px solid var(--line); }
+      .main { padding: 26px 22px; }
+      .role-head, .project-head { flex-direction: column; }
+      .project-tech { max-width: none; text-align: left; }
     }
 
-    .name-block h1 {
-      font-size: 22px;
+    @media print {
+      @page { size: A4; margin: 8mm; }
+      html, body { background: white; }
+      .page { width: 100%; margin: 0; border-radius: 0; box-shadow: none; }
+      .header { padding: 24px 32px 20px; }
+      .sidebar { padding: 20px; }
+      .main { padding: 20px 26px; }
+      .section { margin-bottom: 16px; }
+      .project { padding: 10px 12px; margin-bottom: 8px; break-inside: avoid; }
     }
-  }
-</style>
+  </style>
 </head>
 <body>
-<div class="page">
-  <div class="header">
-    <div class="name-block">
-      <h1>Dhruv Kumar Yadav</h1>
-      <div class="role">Full Stack Developer · MERN Stack</div>
+  <article class="page">
+    <header class="header">
+      <h1 class="name">Dhruv Kumar Yadav</h1>
+      <div class="role">Full Stack Developer · MERN & React Native</div>
+      <div class="contacts">
+        <span>+91 91797 90800</span>
+        <a href="mailto:yadavdhruv0800@gmail.com">yadavdhruv0800@gmail.com</a>
+        <a href="https://github.com/dhruvyadav123" target="_blank" rel="noreferrer">github.com/dhruvyadav123</a>
+        <a href="https://www.linkedin.com/in/dhruv-yadav-5a40b8370/" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+    </header>
+
+    <div class="content">
+      <aside class="sidebar">
+        <section class="section">
+          <h2 class="section-title">Technical Skills</h2>
+          <div class="skill-group">
+            <div class="skill-label">Frontend</div>
+            <div class="tags">
+              <span class="tag">React.js</span><span class="tag">Next.js</span><span class="tag">React Native</span>
+              <span class="tag">JavaScript</span><span class="tag">Tailwind CSS</span><span class="tag">HTML</span><span class="tag">CSS</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-label">Backend</div>
+            <div class="tags">
+              <span class="tag">Node.js</span><span class="tag">Express.js</span><span class="tag">REST APIs</span>
+              <span class="tag">JWT</span><span class="tag">RBAC</span><span class="tag">Socket.io</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-label">Database</div>
+            <div class="tags"><span class="tag">MongoDB</span><span class="tag">MongoDB Atlas</span></div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-label">Payments & Realtime</div>
+            <div class="tags"><span class="tag">Razorpay</span><span class="tag">Agora</span><span class="tag">WebRTC</span><span class="tag">AWS S3</span></div>
+          </div>
+          <div class="skill-group">
+            <div class="skill-label">Deployment & Tools</div>
+            <div class="tags">
+              <span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Postman</span><span class="tag">Linux</span>
+              <span class="tag">PM2</span><span class="tag">Nginx</span><span class="tag">Vercel</span><span class="tag">Render</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Education</h2>
+          <div class="edu">
+            <strong>B.Tech - Computer Science Engineering</strong>
+            <span>LDC Institute, Prayagraj · AKTU University</span>
+          </div>
+          <div class="edu">
+            <strong>Diploma - Computer Science Engineering</strong>
+            <span>Govt. Polytechnic Chopan, Sonebhadra</span>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Server Exposure</h2>
+          <div class="deploy-list">
+            <div class="deploy-item"><strong>Vercel & Render</strong><p>Frontend/backend deployment, environment variables, and production API debugging.</p></div>
+            <div class="deploy-item"><strong>Linux · PM2 · Nginx</strong><p>Server updates, restarts, logs, and API health checks on Linux VPS.</p></div>
+            <div class="deploy-item"><strong>AWS S3</strong><p>Cloud-based image and file upload flows.</p></div>
+            <div class="deploy-item"><strong>FileZilla / SFTP</strong><p>Secure production server file transfer and deployment support.</p></div>
+          </div>
+        </section>
+      </aside>
+
+      <main class="main">
+        <section class="section">
+          <h2 class="section-title">Professional Summary</h2>
+          <p class="summary">
+            <strong>Full Stack Developer with 1 year of hands-on experience</strong> in MERN stack development, React Native app integration, REST APIs, admin panels, authentication, payment and wallet modules, and realtime chat/call flows. Worked on e-commerce, investment marketplace, and live communication products. Comfortable with API testing, MongoDB schema design, frontend-backend integration, and deployment using Render, Vercel, Linux VPS, PM2, Nginx, AWS S3, and FileZilla/SFTP.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Work Experience</h2>
+          <div class="role-card">
+            <div class="role-head">
+              <h3>Full Stack Web Developer</h3>
+              <span class="date">August 2025 - Present</span>
+            </div>
+            <div class="company">Asyscraft Private Limited</div>
+            <ul>
+              <li>Built and maintained MERN stack features using React.js, Node.js, Express.js, and MongoDB for production applications.</li>
+              <li>Developed REST APIs for authentication, profiles, KYC, wallets, payments, transactions, notifications, chat, calls, and admin workflows.</li>
+              <li>Integrated frontend and React Native screens with backend APIs, including validation, protected routes, API states, and role-based access.</li>
+              <li>Implemented MongoDB/Mongoose models, controllers, services, middleware, validation, and centralized error handling.</li>
+              <li>Supported production deployments using Linux VPS, PM2, Nginx, AWS S3, Vercel, and Render.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section-title">Projects</h2>
+          <article class="project">
+            <div class="project-head">
+              <div><h3>CallBee</h3><div class="project-subtitle">Live Chat, Audio/Video Call & Host Platform</div></div>
+              <div class="project-tech">React Native · Node.js · MongoDB · Socket.io · Agora/WebRTC · Razorpay · AWS S3</div>
+            </div>
+            <ul>
+              <li>Built user, host, agent, and admin flows with OTP login, KYC, host availability, wallets, coin packages, withdrawals, notifications, reports, and support.</li>
+              <li>Implemented realtime text chat and call-status handling with Socket.io and Agora/WebRTC-based audio, video, and live-stream joining flows.</li>
+              <li>Integrated mobile screens with APIs and handled wallet deduction, host earnings, transaction history, server testing, uploads, and deployment work.</li>
+            </ul>
+          </article>
+
+          <article class="project">
+            <div class="project-head">
+              <div><h3>TamTam Krishi Store</h3><div class="project-subtitle">Agriculture E-Commerce Platform</div></div>
+              <div class="project-tech">React.js · Node.js · Express.js · MongoDB · Tailwind CSS · JWT · Payments</div>
+            </div>
+            <ul>
+              <li>Developed a mobile-first marketplace for seeds, fertilizers, tools, and farm supplies with category-based discovery.</li>
+              <li>Implemented admin, vendor, and customer roles for products, inventory, orders, and dashboards.</li>
+              <li>Integrated payment and order-status APIs and supported deployment with Vercel, Render, and MongoDB Atlas.</li>
+            </ul>
+          </article>
+
+          <article class="project">
+            <div class="project-head">
+              <div><h3>TokenTraid</h3><div class="project-subtitle">Cryptocurrency Investment Marketplace</div></div>
+              <div class="project-tech">React.js · Node.js · Express.js · MongoDB · REST APIs · JWT · Payments</div>
+            </div>
+            <ul>
+              <li>Developed token discovery, investment details, and account-activity features for users.</li>
+              <li>Implemented secure investor/admin roles, wallets, deposits, withdrawals, and transaction history.</li>
+              <li>Built REST API integrations for dashboards, token reviews, payment actions, and admin monitoring.</li>
+            </ul>
+          </article>
+        </section>
+      </main>
     </div>
-    <div class="contact-grid">
-      <span>Phone: +91 91797 90800</span>
-      <a href="mailto:yadavdhruv0800@gmail.com">Email: yadavdhruv0800@gmail.com</a>
-      <a href="https://github.com/dhruvyadav123" target="_blank" rel="noreferrer">GitHub: github.com/dhruvyadav123</a>
-      <a href="https://www.linkedin.com/in/dhruv-yadav-5a40b8370/" target="_blank" rel="noreferrer">LinkedIn Profile</a>
-      <a href="https://vercel.com/dhruv-yadavs-projects-2d5ef84a" target="_blank" rel="noreferrer">Portfolio (Vercel)</a>
-    </div>
-  </div>
-
-  <div class="body">
-    <div class="sidebar">
-      <div class="section">
-        <div class="section-title">Technical Skills</div>
-
-        <div class="skill-group">
-          <div class="skill-group-label">Frontend</div>
-          <div class="skill-tags">
-            <span class="tag"><span class="ti">FE</span> HTML5</span>
-            <span class="tag"><span class="ti">FE</span> CSS3</span>
-            <span class="tag"><span class="ti">FE</span> JavaScript</span>
-            <span class="tag"><span class="ti">FE</span> React.js</span>
-            <span class="tag"><span class="ti">FE</span> Next.js</span>
-            <span class="tag"><span class="ti">FE</span> Tailwind CSS</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <div class="skill-group-label">Backend</div>
-          <div class="skill-tags">
-            <span class="tag"><span class="ti">BE</span> Node.js</span>
-            <span class="tag"><span class="ti">BE</span> Express.js</span>
-            <span class="tag"><span class="ti">BE</span> REST API</span>
-            <span class="tag"><span class="ti">BE</span> Socket.io</span>
-            <span class="tag"><span class="ti">BE</span> JWT Auth</span>
-            <span class="tag"><span class="ti">BE</span> Chatbot API</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <div class="skill-group-label">Database</div>
-          <div class="skill-tags">
-            <span class="tag"><span class="ti">DB</span> MongoDB</span>
-            <span class="tag"><span class="ti">DB</span> MongoDB Atlas</span>
-            <span class="tag"><span class="ti">DB</span> Mongoose</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <div class="skill-group-label">Tools & Platforms</div>
-          <div class="skill-tags">
-            <span class="tag"><span class="ti">TL</span> Git</span>
-            <span class="tag"><span class="ti">TL</span> GitHub</span>
-            <span class="tag"><span class="ti">TL</span> Postman</span>
-            <span class="tag"><span class="ti">TL</span> VS Code</span>
-            <span class="tag"><span class="ti">TL</span> Vercel</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <div class="skill-group-label">Concepts</div>
-          <div class="skill-tags">
-            <span class="tag"><span class="ti">CN</span> CRUD</span>
-            <span class="tag"><span class="ti">CN</span> Role-Based Access</span>
-            <span class="tag"><span class="ti">CN</span> Email Verification</span>
-            <span class="tag"><span class="ti">CN</span> Admin Panel</span>
-            <span class="tag"><span class="ti">CN</span> Responsive Design</span>
-            <span class="tag"><span class="ti">CN</span> MVC Pattern</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Education</div>
-
-        <div class="edu-item">
-          <div class="edu-degree">B.Tech - Computer Science</div>
-          <div class="edu-inst">LDC Institute, Prayagraj · AKTU</div>
-          <span class="edu-year">Pursuing</span>
-        </div>
-
-        <div class="edu-item">
-          <div class="edu-degree">Diploma - Computer Science</div>
-          <div class="edu-inst">Govt. Polytechnic Chopan, Sonebhadra</div>
-          <span class="edu-year">2025</span>
-        </div>
-
-        <div class="edu-item">
-          <div class="edu-degree">Higher Secondary (12th)</div>
-          <div class="edu-inst">Govt. Excellence H.S. School, MP</div>
-          <span class="edu-year">2022</span>
-        </div>
-
-        <div class="edu-item">
-          <div class="edu-degree">High School (10th)</div>
-          <div class="edu-inst">Govt. Excellence H.S. School, MP</div>
-          <span class="edu-year">2020</span>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Certifications</div>
-
-        <div class="cert-item">
-          <span class="cert-icon">1.</span>
-          <div>
-            <div class="cert-name">Full Stack Web Development (MERN)</div>
-            <div class="cert-org">GRAStech · 2026</div>
-          </div>
-        </div>
-
-        <div class="cert-item">
-          <span class="cert-icon">2.</span>
-          <div>
-            <div class="cert-name">Summer Training - PHP with MVC</div>
-            <div class="cert-org">Oct 2024</div>
-          </div>
-        </div>
-
-        <div class="cert-item">
-          <span class="cert-icon">3.</span>
-          <div>
-            <div class="cert-name">Web Designing Certification</div>
-            <div class="cert-org">Feb 2023</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="main">
-      <div class="section">
-        <div class="section-title">Professional Summary</div>
-        <p class="summary-text">
-          Motivated <strong>Full Stack Developer</strong> with hands-on experience in the
-          <strong>MERN stack</strong> (MongoDB, Express.js, React.js, Node.js). Skilled in building secure,
-          scalable web applications with <strong>JWT authentication</strong>, role-based access control,
-          real-time communication via Socket.io, and RESTful API design. Currently pursuing B.Tech in
-          Computer Science with strong expertise in <strong>Next.js</strong> and <strong>Tailwind CSS</strong>.
-        </p>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Work Experience</div>
-
-        <div class="exp-item">
-          <div class="exp-header">
-            <div class="exp-title">MERN Stack Development Trainee</div>
-            <div class="exp-date">Jul 2025 - Jan 2026</div>
-          </div>
-          <div class="exp-company">Grastech · Noida, Uttar Pradesh</div>
-          <ul class="exp-bullets">
-            <li>Developed full-stack web applications using MongoDB, Express.js, React.js, and Node.js.</li>
-            <li>Built and consumed RESTful APIs; tested endpoints using Postman for API validation.</li>
-            <li>Implemented JWT authentication, role-based access control, and email verification flows.</li>
-            <li>Integrated real-time features using Socket.io for live chat and notification modules.</li>
-            <li>Collaborated using Git and GitHub with branching, pull requests, and code reviews.</li>
-          </ul>
-        </div>
-
-        <div class="exp-item">
-          <div class="exp-header">
-            <div class="exp-title">Frontend Development Intern</div>
-            <div class="exp-date">Sep 2025 - Dec 2025</div>
-          </div>
-          <div class="exp-company">Grastech · Noida, Uttar Pradesh</div>
-          <ul class="exp-bullets">
-            <li>Designed responsive UI components using HTML, CSS, JavaScript, and React.js.</li>
-            <li>Applied Tailwind CSS for consistent, mobile-first design across all project pages.</li>
-            <li>Integrated frontend views with backend REST APIs for dynamic data rendering.</li>
-            <li>Improved page performance and cross-browser compatibility through best practices.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-title">Projects</div>
-
-        <div class="proj-item">
-          <div class="proj-header">
-            <div class="proj-name">Online Admission System</div>
-            <div class="proj-tech">MERN · JWT · Role-Based</div>
-          </div>
-          <ul class="proj-features">
-            <li>Full-stack admission portal with student, admin, and staff roles secured via JWT authentication.</li>
-            <li>CRUD operations for student applications, document uploads, and status tracking.</li>
-            <li>Admin panel with email verification workflow and application approval management.</li>
-          </ul>
-        </div>
-
-        <div class="proj-item">
-          <div class="proj-header">
-            <div class="proj-name">Hospital Management System</div>
-            <div class="proj-tech">MERN · REST API · Admin Panel</div>
-          </div>
-          <ul class="proj-features">
-            <li>Multi-role system (Admin, Doctor, Patient) with JWT-based authentication and secure login.</li>
-            <li>CRUD for patient records, appointments, prescriptions, and doctor schedules.</li>
-            <li>Responsive admin dashboard with role-based access control for all operations.</li>
-          </ul>
-        </div>
-
-        <div class="proj-item">
-          <div class="proj-header">
-            <div class="proj-name">Ayurvedic E-Commerce Platform</div>
-            <div class="proj-tech">MERN · MongoDB Atlas · Chatbot API</div>
-          </div>
-          <ul class="proj-features">
-            <li>Full-featured e-commerce site with product catalog, cart, and checkout using MERN stack.</li>
-            <li>Integrated Chatbot REST API for customer support and product recommendation assistance.</li>
-            <li>MongoDB Atlas cloud database with secure authentication and email verification on signup.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  </article>
 </body>
 </html>

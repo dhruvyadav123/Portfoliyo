@@ -1,16 +1,9 @@
 const skills = {
-  frontend: ["HTML5", "CSS3", "JavaScript", "React.js", "Next.js", "Tailwind CSS"],
-  backend: ["Node.js", "Express.js", "REST API", "Socket.io", "JWT Auth", "Chatbot API"],
-  database: ["MongoDB", "MongoDB Atlas", "Mongoose"],
-  tools: ["Git", "GitHub", "Postman", "VS Code", "Vercel"],
-  concepts: [
-    "CRUD Operations",
-    "Role-Based Access",
-    "Email Verification",
-    "Admin Panel",
-    "Responsive Design",
-    "MVC Pattern",
-  ],
+  frontend: ['React.js', 'Next.js', 'React Native', 'JavaScript', 'Tailwind CSS', 'HTML', 'CSS'],
+  backend: ['Node.js', 'Express.js', 'REST APIs', 'JWT', 'RBAC', 'Socket.io'],
+  database: ['MongoDB', 'MongoDB Atlas'],
+  paymentsAndRealtime: ['Razorpay', 'Agora', 'WebRTC', 'AWS S3'],
+  deploymentAndTools: ['Git', 'GitHub', 'Postman', 'Linux', 'PM2', 'Nginx', 'Vercel', 'Render', 'FileZilla/SFTP'],
 };
 
 export default skills;

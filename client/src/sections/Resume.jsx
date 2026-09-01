@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { BookText, DripHeading, Reveal } from '../components/SectionAnimations';
+import { projectCountLabel } from '../data/projects';
 
 const RESUME_HTML_URL = '/dhruv_kumar_yadav_resume.html';
 const RESUME_PDF_URL = '/dhruv_kumar_yadav_resume.pdf';
@@ -7,18 +8,18 @@ const RESUME_PDF_URL = '/dhruv_kumar_yadav_resume.pdf';
 const highlights = [
   {
     label: 'Experience',
-    value: '6mo+',
-    detail: 'MERN training, frontend internship, API integration, and real-world project delivery.',
+    value: '1yr+',
+    detail: 'Full Stack Web Developer at Asyscraft Private Limited, working on production MERN and React Native integrations.',
   },
   {
     label: 'Projects',
-    value: '3+',
-    detail: 'Admission portal, hospital management system, and Ayurvedic e-commerce platform.',
+    value: projectCountLabel,
+    detail: 'SafeMarg, CallBee, TamTam Krishi Store, and TokenTraid across travel, realtime communication, commerce, and fintech.',
   },
   {
     label: 'Focus',
-    value: 'MERN',
-    detail: 'React, Node.js, MongoDB, Express, JWT auth, responsive UI, and scalable app flows.',
+    value: 'Full Stack',
+    detail: 'React, React Native, Node.js, MongoDB, Socket.io, payments, wallets, and production deployment.',
   },
 ];
 
@@ -56,12 +57,12 @@ function ResumeHomeSection() {
           />
           <BookText
             delay={0.1}
-            text="Preview the exact designed resume in the browser, or download the PDF directly with one click."
+            text="Preview the latest resume with production experience, mobile integration, realtime systems, and deployment exposure, or download the PDF directly."
             className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-gray-400 sm:text-base"
           />
         </Reveal>
 
-        <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="mx-auto max-w-5xl">
           <Reveal delay={0.08} className="rounded-[32px] border border-[#eba134]/18 bg-[#101010] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.35)] sm:p-8">
             <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
               <div>
@@ -109,15 +110,6 @@ function ResumeHomeSection() {
             </Reveal>
           </Reveal>
 
-          <Reveal delay={0.16} className="rounded-[32px] border border-[#eba134]/18 bg-[#0f0f0f] p-4 sm:p-5">
-            <div className="overflow-hidden rounded-[24px] border border-white/8 bg-white shadow-[0_16px_40px_rgba(0,0,0,0.3)]">
-              <iframe
-                title="Dhruv Kumar Yadav Resume Preview"
-                src={RESUME_HTML_URL}
-                className="h-[520px] w-full bg-white"
-              />
-            </div>
-          </Reveal>
         </div>
       </div>
     </section>
@@ -132,7 +124,7 @@ function ResumePreviewPage() {
           <div className="max-w-3xl">
             <p className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#eba134]">Resume Preview</p>
             <DripHeading
-              text="Styled Resume Preview with" accent="PDF Download"
+              text="Latest Full Stack" accent="Resume"
                
              
               as="h1"

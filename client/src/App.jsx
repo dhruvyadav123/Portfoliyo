@@ -47,7 +47,7 @@ function ScrollManager() {
 const Layout = ({ children }) => (
   <div className="flex min-h-screen flex-col bg-[#0a0a0a]">
     <Navbar />
-    <main className="flex-1">{children}</main>
+    <main className="flex-1 pt-[82px]">{children}</main>
     <Footer />
   </div>
 );

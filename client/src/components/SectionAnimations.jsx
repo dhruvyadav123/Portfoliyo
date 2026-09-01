@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 
 function useInViewOnce(threshold = 0.15) {
   const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  );
 
   useEffect(() => {
     const element = ref.current;
@@ -29,6 +31,8 @@ function useInViewOnce(threshold = 0.15) {
   return { ref, visible };
 }
 
+// Tag is rendered as a JSX component; the base ESLint rule cannot detect that usage.
+// eslint-disable-next-line no-unused-vars
 export function Reveal({ children, className = '', delay = 0, style = {}, as: Tag = 'div' }) {
   const { ref, visible } = useInViewOnce(0.1);
 
@@ -53,6 +57,7 @@ export function BookText({
   className = '',
   delay = 0,
   style = {},
+  // eslint-disable-next-line no-unused-vars
   as: Tag = 'p',
 }) {
   const { ref, visible } = useInViewOnce(0.2);
@@ -86,6 +91,7 @@ export function DripHeading({
   style = {},
   accentColor = '#eba134',
   baseColor = 'white',
+  // eslint-disable-next-line no-unused-vars
   as: Tag = 'h2',
 }) {
   const { ref, visible } = useInViewOnce(0.25);
